@@ -9,7 +9,7 @@
     </nav>
     <header></header>
     <section id='new-container'>
-        <form action="/<%=index %>/?_method=PUT" method="POST">
+        <form action="/<%=product.id %>/?_method=PUT" method="POST">
             Name: <input type="text" name="name" value="<%=product.name %>" onclick="this.select()">
             Descripriton: <input type="text" name="description" value="<%=product.description %>" onclick="this.select()">
             Image: <input type="text" name="img" value="<%=product.img %>" onclick="this.select()">

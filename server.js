@@ -12,8 +12,8 @@ const DATABASE_URL = process.env.DATABASE_URL
 
 // Set up varable with schema from model imports
 const Product = require("./models/products.js")
-const seed = require("./models/seed.js");
-const { openDelimiter } = require("ejs");
+//const seed = require("./models/seed.js");
+//const { openDelimiter } = require("ejs");
 
 // Set up MongoDB connection through mongoose
 
@@ -26,11 +26,11 @@ db.on('connected', () => console.log('mongo connected'));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
 // Seed
-const seedDB = async () => {
-    await Product.deleteMany({});
-    await Product.insertMany(seed);
-}
-seedDB();
+// const seedDB = async () => {
+//     await Product.deleteMany({});
+//     await Product.insertMany(seed);
+// }
+// seedDB();
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -38,10 +38,7 @@ app.use(mO("_method"))
 
 // Index
 app.get("/", async(req, res) => {
-    //res.send("hello")
     let allProducts = await Product.find({})
-    //console.log(allProducts)
-    //console.log(allProducts[0])
     res.render('index.ejs', {products: allProducts})
 })
 
@@ -52,11 +49,13 @@ app.get("/new", (req, res) => {
 
 // Delete
 app.delete("/:id", async(req, res) => {
-    let deleteProduct = await Product.find({})
-    deleteProduct.splice(req.params.id, 1)
- 
-    await Product.deleteMany({});
-    await Product.insertMany(deleteProduct);
+    let i = req.params.id
+    let deleteProduct = await Product.findByIdAndDelete(i)
+    
+    // let deleteProduct = await Product.find({})
+    // deleteProduct.splice(req.params.id, 1)
+    // await Product.deleteMany({});
+    // await Product.insertMany(deleteProduct);
 
     res.redirect("/")
 })
@@ -65,24 +64,28 @@ app.delete("/:id", async(req, res) => {
 app.put("/:id", async(req, res) => {
     //console.log('update')
     let i = req.params.id
-    let updateProduct = await Product.find({})
-    updateProduct[i] = req.body
+    let b = req.body
 
-    await Product.deleteMany({});
-    await Product.insertMany(updateProduct);
+    let updateProduct = await Product.findByIdAndUpdate(i, b, {new: true,},)
+    // let updateProduct = await Product.find({})
+    // updateProduct[i] = req.body
+    // await Product.deleteMany({});
+    // await Product.insertMany(updateProduct);
 
     res.redirect("/"+i)
 })
 
-    //Buy Button
+    //Update - Buy Button
 app.put("/:id/buy", async(req, res) => {
     let i = req.params.id
-    let x = await Product.find({})
-    x[i].qty -= 1
-    console.log(x[i].qty)
+    let x = await Product.findById(i)
+    //let x = await Product.find({})
 
-    await Product.deleteMany({});
-    await Product.insertMany(x);
+    x.qty -= 1
+    await Product.findByIdAndUpdate(i, x, {new: true})
+
+    // await Product.deleteMany({});
+    // await Product.insertMany(x);
 
     res.redirect("/"+i)
 })
@@ -99,18 +102,26 @@ app.get("/:id/edit", async(req, res) => {
     // console.log(`edit: ${req.params.id}`)
     // res.send('Edit page')
     let i = req.params.id
-    let editProduct = await Product.find({})
+
+    let editProduct = await Product.findById(i)
+    //let editProduct = await Product.find({})
+    
+    //[i]
     res.render("edit.ejs", {
-        product: editProduct[i],
-        index: req.params.id
+        product: editProduct,
+        //index: req.params.id
     })
 })
 
 // Show
 app.get('/:id', async(req, res) => {
     let i = req.params.id
-    let foundProducts = await Product.find({})
-    res.render("show.ejs", {product: foundProducts[i],
+    
+    let foundProduct = await Product.findById(i)
+    // let foundProducts = await Product.find({})
+    
+    //s[i]
+    res.render("show.ejs", {product: foundProduct,
     index: i})
 });
 

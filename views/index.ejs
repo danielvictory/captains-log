@@ -14,14 +14,14 @@
         <ul id='product-list'>
             <% products.forEach( (p, i) => { %>
                 <section class="card">
-                    <a href="/<%=i %>">
+                    <a href="/<%=p.id %>">
                     <img alt="<%=p.name %>" src="<%=p.img %>" height="100px">
                     <p><%=p.name %></p>
                     </a>
-                    <form action="/<%=i %>/edit">
+                    <form action="/<%=p.id %>/edit">
                         <button type="submit">Edit</button>
                     </form>
-                    <form action="/<%=i %>/?_method=DELETE" method=POST>
+                    <form action="/<%=p.id %>/?_method=DELETE" method=POST>
                         <button type="submit">Delete</button>
                     </form>
                 </section>
