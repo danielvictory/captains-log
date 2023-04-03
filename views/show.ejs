@@ -14,7 +14,16 @@
         <img alt="<%=product.name %>" src="<%=product.img %>" height="100px">
         <p><%=product.description %></p>
         <p>$<%=product.price %></p>
-        <p>In Stock: <%=product.qty %></p>
+        <p>
+            <% if (product.qty > 0) { %>
+                <p>In Stock: <%=product.qty %></p>
+                <form action="/<%=index %>/buy?_method=PUT" method="POST">
+                    <input type="submit" value="Buy!">
+                </form>
+            <%} else { %>
+                <p> Out of Stock! </p>
+             <% }%>
+        </p>
     </section>
 </body>
 </html>

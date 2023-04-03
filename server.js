@@ -12,7 +12,8 @@ const DATABASE_URL = process.env.DATABASE_URL
 
 // Set up varable with schema from model imports
 const Product = require("./models/products.js")
-const seed = require("./models/seed.js")
+const seed = require("./models/seed.js");
+const { openDelimiter } = require("ejs");
 
 // Set up MongoDB connection through mongoose
 
@@ -73,6 +74,19 @@ app.put("/:id", async(req, res) => {
     res.redirect("/")
 })
 
+    //Buy Button
+app.put("/:id/buy", async(req, res) => {
+    let i = req.params.id
+    let x = await Product.find({})
+    x[i].qty -= 1
+    console.log(x[i].qty)
+
+    await Product.deleteMany({});
+    await Product.insertMany(x);
+
+    res.redirect("/"+i)
+})
+
 // Create
 app.post("/", (req, res) => {
     //console.log('creating')
@@ -96,7 +110,8 @@ app.get("/:id/edit", async(req, res) => {
 app.get('/:id', async(req, res) => {
     let i = req.params.id
     let foundProducts = await Product.find({})
-    res.render("show.ejs", {product: foundProducts[i]})
+    res.render("show.ejs", {product: foundProducts[i],
+    index: i})
 });
 
 // Listen
