@@ -4,13 +4,16 @@
     <%- include ("./partials/head.ejs") %>
 </head>
 <body>
-    <nav>
-        <%- include ("./partials/nav.ejs") %>
-    </nav>
-    <header></header>
-    <section id='store-container'>
-        <span>Welcome to</span>
+    <header>
+        <nav>
+            <%- include ("./partials/nav.ejs") %>
+        </nav>
+        <br>
+        <p>Welcome to</p>
         <h1>THE STORE</h1>
+        <p>user</p>
+    </header>
+    <section id='store-container'>
         <ul id='product-list'>
             <% products.forEach( (p, i) => { %>
                 <section class="card">

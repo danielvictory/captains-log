@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ("./partials/head.ejs") %>
+</head>
+<body>
+    <nav>
+        <%- include ("./partials/nav.ejs") %>
+    </nav>
+    <header></header>
+    <section id='store-container'>
+        <span>Welcome to</span>
+        <h1>YOUR SHIPPING CART</h1>
+        <ul id='product-list'>
+            <% products.forEach( (p, i) => { %>
+                <section class="card">
+                    <img alt="<%=p.name %>" src="<%=p.img %>" height="100px">
+                    <p><%=p.name %></p>
+                </section>
+            <% }) %>
+        </ul>
+    </section>
+</body>
+</html>

@@ -1,11 +1,6 @@
 // Require Node packages
-const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-
-// Set up app
-const app = express();
-const PORT = process.env.PORT || 4000;
 
 // Set up varable with schema from model imports
 const Product = require("./models/products.js")
@@ -26,4 +21,6 @@ const seedDB = async () => {
     await Product.deleteMany({});
     await Product.insertMany(seed);
 }
-seedDB();
+seedDB().then( () => {
+    mongoose.connection.close()
+});

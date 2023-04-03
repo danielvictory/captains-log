@@ -10,7 +10,12 @@ const PORT = process.env.PORT || 4000;
 
 // Set up varable with schema from model imports
 const Product = require("./models/products.js")
+const User = require("./models/user.js")
 //const { openDelimiter } = require("ejs");
+
+// set-up dummy anon user variables
+const newUser = new User()
+newUser.username = 'my favorite customer'
 
 // Set up MongoDB connection through mongoose
 const DATABASE_URL = process.env.DATABASE_URL
@@ -63,6 +68,14 @@ app.put("/:id", async(req, res) => {
 app.put("/:id/buy", async(req, res) => {
     let i = req.params.id
     let p = await Product.findById(i)
+    
+    // let u = {username: '', shopping_cart: []}
+    // u.shopping_cart.push(p)
+    // console.log(u)
+    // const newUser = new User()
+    newUser.shopping_cart.push(p)
+    //console.log(newUser)
+    newUser.save()
 
     p.qty -= 1
     await Product.findByIdAndUpdate(i, p, {new: true})
@@ -88,15 +101,15 @@ app.get("/:id/edit", async(req, res) => {
 })
 
 // Show
-// app.get('/user', async(req, res) => {
+app.get('/user', async(req, res) => {
+    // console.log(db.users.dataSize())
+    //let u = await User.findById(newUser._id)
+    //let foundProduct = await Product.findById(i)
 
-//     let foundProduct = await Product.findById(i)
-
-//     res.render("show.ejs", {
-//         product: foundProduct,
-//         index: i,
-//         })
-// });
+    res.render("user.ejs", {
+        products: newUser.shopping_cart,
+        })
+});
 
 app.get('/:id', async(req, res) => {
     let i = req.params.id
