@@ -4,7 +4,9 @@
     <%- include ("./partials/head.ejs") %>
 </head>
 <body>
-    <nav></nav>
+    <nav>
+        <%- include ("./partials/nav.ejs") %>
+    </nav>
     <header></header>
     <section id='store-container'>
         <span>Welcome to</span>
@@ -12,10 +14,17 @@
         <ul id='product-list'>
             <% products.forEach( (p, i) => { %>
                 <section class="card">
-                    <a href="/product/<%=i %>">
+                    <a href="/<%=i %>">
                     <img alt="<%=p.name %>" src="<%=p.img %>" height="100px">
                     <p><%=p.name %></p>
                     </a>
+                    <form action="/<%=i %>/edit">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <form action="/<%=i %>/?_method=DELETE" method=POST>
+                        <button type="submit">Delete</button>
+                    </form>
+                    <!-- <a href="/<%=i %>/edit">Edit</a> -->
                 </section>
             <% }) %>
         </ul>

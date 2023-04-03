@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ("./partials/head.ejs") %>
+</head>
+<body>
+    <nav>
+        <%- include ("./partials/nav.ejs") %>
+    </nav>
+    <header></header>
+    <section id='show-container'>
+
+        <h1><%=product.name %></h1>
+        <img alt="<%=product.name %>" src="<%=product.img %>" height="100px">
+        <p><%=product.description %></p>
+        <p>$<%=product.price %></p>
+        <p>In Stock: <%=product.qty %></p>
+    </section>
+</body>
+</html>

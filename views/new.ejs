@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ("./partials/head.ejs") %>
+</head>
+<body>
+    <nav>
+        <%- include ("./partials/nav.ejs") %>
+    </nav>
+    <header></header>
+    <section id='new-container'>
+        <form action="/" method="POST">
+            Name: <input type="text" name="name" value="NO DATA" onclick="this.select()">
+            Descripriton: <input type="text" name="description" value="NO DATA" onclick="this.select()">
+            Image: <input type="text" name="img" value="NO DATA" onclick="this.select()">
+            Price: <input type="number" name="price" value="NO DATA" onclick="this.select()">
+            Quantity: <input type="text" name="qty" value="NO DATA" onclick="this.select()">
+            <input type="submit" value="New Product">
+        </form>
+    </section>
+</body>
+</html>
