@@ -1,0 +1,43 @@
+form {
+    display: inline;
+}
+
+img {
+    width: 90%;
+}
+
+button {
+    width: 40%;
+    
+    padding: 0;
+}
+
+#product-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#store-container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.button-group {
+    width: 90%
+}
+
+.card {
+    display:grid;
+    /* grid-template-columns: 1fr; */
+    grid-template-rows: 80%, auto;
+    /* grid-column-gap: 5px; */
+    /* grid-row-gap: 5px; */
+    justify-items: center;
+
+    width: 30%;
+
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+}
+

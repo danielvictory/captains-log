@@ -22,6 +22,9 @@ db.on('error', (err) => console.log(err.message + ' is mongod not running?'));
 db.on('connected', () => console.log('mongo connected'));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
+// Set up Public for CSS calls
+app.use(express.static('public'));
+
 // Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(mO("_method"))
@@ -85,6 +88,16 @@ app.get("/:id/edit", async(req, res) => {
 })
 
 // Show
+// app.get('/user', async(req, res) => {
+
+//     let foundProduct = await Product.findById(i)
+
+//     res.render("show.ejs", {
+//         product: foundProduct,
+//         index: i,
+//         })
+// });
+
 app.get('/:id', async(req, res) => {
     let i = req.params.id
     
@@ -95,6 +108,8 @@ app.get('/:id', async(req, res) => {
         index: i,
         })
 });
+
+
 
 // Listen
 app.listen(PORT, () => console.log(`Open for business on PORT ${PORT}`))

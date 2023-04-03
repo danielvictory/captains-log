@@ -18,12 +18,14 @@
                     <img alt="<%=p.name %>" src="<%=p.img %>" height="100px">
                     <p><%=p.name %></p>
                     </a>
-                    <form action="/<%=p.id %>/edit">
-                        <button type="submit">Edit</button>
-                    </form>
-                    <form action="/<%=p.id %>/?_method=DELETE" method=POST>
-                        <button type="submit">Delete</button>
-                    </form>
+                    <div class='button-group'>
+                        <form action="/<%=p.id %>/edit">
+                            <button type="submit">Edit</button>
+                        </form>
+                        <form action="/<%=p.id %>/?_method=DELETE" method=POST>
+                            <button type="submit">Delete</button>
+                        </form>
+                    </div>
                 </section>
             <% }) %>
         </ul>
