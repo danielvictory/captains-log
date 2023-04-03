@@ -36,16 +36,56 @@ app.get("/", async(req, res) => {
 })
 
 // New
+app.get("/new", (req, res) => {
+    res.send('New Page')
+
+    //res.render('new.ejs')
+})
 
 // Delete
+app.delete("/:id", (req, res) => {
+    console.log('deleted')
+    // products.splice(req.params.id, 1)
+    // shift += 1
+    // console.log(shift)
+    res.redirect("/")
+})
 
 // Update
+app.put("/:id", (req, res) => {
+    console.log('update')
+    //products[req.params.id] = req.body
+    res.redirect("/")
+})
 
 // Create
+app.post("/", (req, res) => {
+    console.log('created')
+    res.send("create")
+    res.redirect("/")
+    // const p = new Book(req.body)
+    // p.save().then(res.redirect('/'))
+})
 
 // Edit
+app.get("/:id/edit", (req, res) => {
+    console.log(`edit: ${req.params.id}`)
+    res.send('Edit page')
+    // res.render("edit.ejs", {
+    //     product: products[req.params.id],
+    //     index: req.params.id
+    // })
+})
 
 // Show
+app.get('/:id', (req, res) => {
+    res.send('show page')
+
+    // async
+    // let i = req.params.id
+    // let foundBook = await Book.findById(i).exec()
+    // res.render("show.ejs", {book: foundBook})
+});
 
 // Listen
 app.listen(PORT, () => console.log(`Open for business on PORT ${PORT}`))
