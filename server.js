@@ -71,7 +71,7 @@ app.put("/:id", async(req, res) => {
     await Product.deleteMany({});
     await Product.insertMany(updateProduct);
 
-    res.redirect("/")
+    res.redirect("/"+i)
 })
 
     //Buy Button
