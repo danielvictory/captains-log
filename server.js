@@ -96,7 +96,7 @@ app.post("/", (req, res) => {
     console.log(newLog)
     // newLog.isShipBroken = newLog.isShipBroken === "on" ? true : false;
     // console.log(newLog)
-    newLog.save().then(res.redirect('/logs'));
+    newLog.save().then(res.redirect('/'+newLog.id));
 })
 
 // // Edit
@@ -125,7 +125,7 @@ app.get('/:id', async(req, res) => {
     let i = req.params.id
     
     let foundLog = await Log.findById(i)
-
+    console.log(foundLog.createdAt)
     res.render("show.ejs", {
         log: foundLog,
         id: i,

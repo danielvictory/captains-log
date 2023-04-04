@@ -11,25 +11,49 @@
         <br>
         <h1>CAPTAIN'S LOG</h1>
     </header>
-    <section id='log-book'>
-        <ul id='log-list'>
-            <% logs.forEach( (log, i) => { %>
-                <section class="log-card">
-                    <a href="/<%=log.id %>">
-                    <p><%=log.title %></p>
-                    </a>
-                    <p>TIMESTAMP</p>
-                    <!-- <div class='button-group'>
-                        <form action="/<%=//p.id %>/edit">
-                            <button type="submit">Edit</button>
-                        </form>
-                        <form action="/<%=//p.id %>/?_method=DELETE" method=POST>
-                            <button type="submit">Delete</button>
-                        </form>
-                    </div> -->
-                </section>
-            <% }) %>
-        </ul>
+    <section id='log-book' class="container">
+        <div class="row">
+            <div class="twelve columns">
+                <table id='log-list' class="u-full-width">
+                    <thead>
+                        <th>Created</th>
+                        <th>Entry</th>
+                        <th>Updated</th>
+                    </thead>
+                    <tbody>
+                    <% logs.forEach( (log, i) => { %>
+                        <tr>
+                            <td>
+                                <span><%=log.createdAt.toString().slice(0, 16) %></span><br>
+                                <span><%=log.createdAt.toString().slice(15, 24) %></span>
+                            </td>
+                            
+                            <td>
+                                <a href="/<%=log.id %>">
+                                    <p><%=log.title %></p>
+                                </a>
+                            </td>
+
+                            <td>
+                                <span><%=log.updatedAt.toString().slice(0, 16) %></span><br>
+                                <span><%=log.updatedAt.toString().slice(15, 24) %></span>
+                            </td>
+
+                            <!-- <div class='button-group'>
+                                <form action="/<%=//p.id %>/edit">
+                                    <button type="submit">Edit</button>
+                                </form>
+                                <form action="/<%=//p.id %>/?_method=DELETE" method=POST>
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </div> -->
+
+                        </tr>
+                    <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </section>
 </body>
 </html>
