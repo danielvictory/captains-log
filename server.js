@@ -9,10 +9,12 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Set up varable with schema from model imports
-const Log = require("./models/log.js")
+const Log = require("./models/log.js");
+const logController = require("./controllers/logs.js");
+const foodController = require("./controllers/foodlogs.js");
 
 // Set up MongoDB connection through mongoose
-const DATABASE_URL = process.env.DATABASE_URL
+const DATABASE_URL = process.env.DATABASE_URL;
 mongoose.connect(DATABASE_URL);
 const db = mongoose.connection;
 
@@ -29,12 +31,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(mO("_method"))
 
 // Index - home and index
-app.get("/", (req, res) => {
-    res.send(`<h1>CAPTAIN'S LOG</h1>
-    <h2>TOP SECRET</h2>
-    <p>Seriously, please be cool about this...</p>
-    <a href="/logs">Open Log</a>`)
-})
+    // Home
+app.get("/", logController.home)
+
+    // Index
+app.get("/foodlogs", foodController.foodLog)
 
     // index
 app.get("/logs", async(req, res) => {
