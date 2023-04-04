@@ -9,13 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Set up varable with schema from model imports
-const Product = require("./models/products.js")
-const User = require("./models/user.js")
-//const { openDelimiter } = require("ejs");
-
-// set-up dummy anon user variables
-const newUser = new User()
-newUser.username = 'my favorite customer'
+const Log = require("./models/log.js")
+//const User = require("./models/user.js")
 
 // Set up MongoDB connection through mongoose
 const DATABASE_URL = process.env.DATABASE_URL
@@ -34,11 +29,22 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(mO("_method"))
 
-// Index
-app.get("/", async(req, res) => {
-    let allProducts = await Product.find({})
+// Index - home and index
+app.get("/", (req, res) => {
+    res.send(`<h1>CAPTAIN'S LOG</h1>
+    <h2>TOP SECRET</h2>
+    <p>Seriously, please be cool about this...</p>
+    <a href="/logs">Open Log</a>`)
+})
+
+    // index
+app.get("/logs", async(req, res) => {
+    //async
+    //let allProducts = await Product.find({})
+    let allLogs = await Log.find({})
     res.render('index.ejs', {
-        products: allProducts,
+        logs: allLogs,
+        //comments: allComments,
     })
 })
 
@@ -47,82 +53,84 @@ app.get("/new", (req, res) => {
     res.render('new.ejs')
 })
 
-// Delete
-app.delete("/:id", async(req, res) => {
-    let i = req.params.id
-    let deleteProduct = await Product.findByIdAndDelete(i)
-    res.redirect("/")
-})
+// // Delete
+// app.delete("/:id", async(req, res) => {
+//     let i = req.params.id
+//     let deleteProduct = await Product.findByIdAndDelete(i)
+//     res.redirect("/")
+// })
 
-// Update
-app.put("/:id", async(req, res) => {
-    let i = req.params.id
-    let b = req.body
+// // Update
+// app.put("/:id", async(req, res) => {
+//     let i = req.params.id
+//     let b = req.body
 
-    let updateProduct = await Product.findByIdAndUpdate(i, b, {new: true,},)
+//     let updateProduct = await Product.findByIdAndUpdate(i, b, {new: true,},)
 
-    res.redirect("/"+i)
-})
+//     res.redirect("/"+i)
+// })
 
-//Update - Buy Button
-app.put("/:id/buy", async(req, res) => {
-    let i = req.params.id
-    let p = await Product.findById(i)
+// //Update - Buy Button
+// app.put("/:id/buy", async(req, res) => {
+//     let i = req.params.id
+//     let p = await Product.findById(i)
     
-    // let u = {username: '', shopping_cart: []}
-    // u.shopping_cart.push(p)
-    // console.log(u)
-    // const newUser = new User()
-    newUser.shopping_cart.push(p)
-    //console.log(newUser)
-    newUser.save()
+//     // let u = {username: '', shopping_cart: []}
+//     // u.shopping_cart.push(p)
+//     // console.log(u)
+//     // const newUser = new User()
+//     newUser.shopping_cart.push(p)
+//     //console.log(newUser)
+//     newUser.save()
 
-    p.qty -= 1
-    await Product.findByIdAndUpdate(i, p, {new: true})
+//     p.qty -= 1
+//     await Product.findByIdAndUpdate(i, p, {new: true})
 
-    res.redirect("/"+i)
-})
+//     res.redirect("/"+i)
+// })
 
 // Create
 app.post("/", (req, res) => {
-    const newProduct = new Product(req.body)
-    newProduct.save().then(res.redirect('/'))
+    req.body.isShipBroken = req.body.isShipBroken === "on" ? true : false;
+    const newLog = new Log(req.body);
+    console.log(newLog)
+    // newLog.isShipBroken = newLog.isShipBroken === "on" ? true : false;
+    // console.log(newLog)
+    newLog.save().then(res.redirect('/logs'));
 })
 
-// Edit
-app.get("/:id/edit", async(req, res) => {
-    let i = req.params.id
+// // Edit
+// app.get("/:id/edit", async(req, res) => {
+//     let i = req.params.id
 
-    let editProduct = await Product.findById(i)
+//     let editProduct = await Product.findById(i)
     
-    res.render("edit.ejs", {
-        product: editProduct,
-    })
-})
+//     res.render("edit.ejs", {
+//         product: editProduct,
+//     })
+// })
 
-// Show
-app.get('/user', async(req, res) => {
-    // console.log(db.users.dataSize())
-    //let u = await User.findById(newUser._id)
-    //let foundProduct = await Product.findById(i)
+// // Show
+// app.get('/user', async(req, res) => {
+//     // console.log(db.users.dataSize())
+//     //let u = await User.findById(newUser._id)
+//     //let foundProduct = await Product.findById(i)
 
-    res.render("user.ejs", {
-        products: newUser.shopping_cart,
-        })
-});
+//     res.render("user.ejs", {
+//         products: newUser.shopping_cart,
+//         })
+// });
 
 app.get('/:id', async(req, res) => {
     let i = req.params.id
     
-    let foundProduct = await Product.findById(i)
+    let foundLog = await Log.findById(i)
 
     res.render("show.ejs", {
-        product: foundProduct,
-        index: i,
+        log: foundLog,
+        id: i,
         })
 });
 
-
-
 // Listen
-app.listen(PORT, () => console.log(`Open for business on PORT ${PORT}`))
+app.listen(PORT, () => console.log(`Live Long and Prosper on PORT ${PORT}`))

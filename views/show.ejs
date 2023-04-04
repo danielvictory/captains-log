@@ -8,28 +8,22 @@
         <%- include ("./partials/nav.ejs") %>
     </nav>
     <header></header>
-    <section id='show-container'>
+    <section id='log-entry'>
 
-        <h1><%=product.name %></h1>
-        <img alt="<%=product.name %>" src="<%=product.img %>" height="100px">
-        <p><%=product.description %></p>
-        <p>$<%=product.price %></p>
-
-        <% if (product.qty > 0) { %>
-            <p>In Stock: <%=product.qty %></p>
-            <form action="/<%=product.id %>/buy?_method=PUT" method="POST">
-                <input type="submit" value="Buy!">
-            </form>
-        <%} else { %>
-            <p> Out of Stock! </p>
-            <% }%>
-
-        <form action="/<%=product.id %>/edit">
+        <h1><%=log.title %></h1>
+        <p><%=log.entry %></p>
+        <p>Was the ship broken at the time?</p>
+        <% if (log.isShipBroken) { %>
+                <span>yes</span>
+            <% } else { %>
+                <span>no</span>
+        <%}%>
+        <!-- <form action="/<%=//product.id %>/edit">
             <button type="submit">Edit</button>
         </form>
-        <form action="/<%=product.id %>/?_method=DELETE" method=POST>
+        <form action="/<%=//product.id %>/?_method=DELETE" method=POST>
             <button type="submit">Delete</button>
-        </form>
+        </form> -->
     </section>
 </body>
 </html>

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 // Set up varable with schema from model imports
-const Product = require("./models/products.js")
+const x = require("./models/products.js")
 const seed = require("./models/seed.js");
 
 // Set up MongoDB connection through mongoose
