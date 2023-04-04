@@ -19,6 +19,7 @@
                         <th>Created</th>
                         <th>Entry</th>
                         <th>Updated</th>
+                        <th>Modify</th>
                     </thead>
                     <tbody>
                     <% logs.forEach( (log, i) => { %>
@@ -29,7 +30,7 @@
                             </td>
                             
                             <td>
-                                <a href="/<%=log.id %>">
+                                <a href="/logs/<%=log.id %>">
                                     <p><%=log.title %></p>
                                 </a>
                             </td>
@@ -41,9 +42,10 @@
 
                             <td>
                                 <div class='button-group'>
-                                    <form action="/<%=log.id %>/edit">
+                                    <form action="/logs/<%=log.id %>/edit">
                                         <button type="submit">Edit</button>
                                     </form>
+
                                     <form action="/<%=log.id %>/?_method=DELETE" method=POST>
                                         <button type="submit">Delete</button>
                                     </form>

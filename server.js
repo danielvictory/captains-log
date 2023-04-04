@@ -24,7 +24,7 @@ db.on('connected', () => console.log('mongo connected'));
 db.on('disconnected', () => console.log('mongo disconnected'));
 
 // Set up Public for CSS calls
-app.use(express.static('public'));
+app.use(express.static('./public'));
 
 // Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -61,7 +61,7 @@ app.delete("/:id", async(req, res) => {
 })
 
 // Update
-app.put("/:id", async(req, res) => {
+app.put("/logs/:id", async(req, res) => {
     let i = req.params.id
 
     req.body.shipIsBroken = req.body.shipIsBroken === "on" ? true : false;
@@ -69,7 +69,7 @@ app.put("/:id", async(req, res) => {
 
     let updateLog = await Log.findByIdAndUpdate(i, b, {new: true,},)
 
-    res.redirect("/"+i)
+    res.redirect("/logs/"+i)
 })
 
 // Create
@@ -81,7 +81,7 @@ app.post("/", (req, res) => {
 })
 
 // Edit
-app.get("/:id/edit", async(req, res) => {
+app.get("/logs/:id/edit", async(req, res) => {
     let i = req.params.id
 
     let editLog = await Log.findById(i)
@@ -91,7 +91,7 @@ app.get("/:id/edit", async(req, res) => {
     })
 })
 
-app.get('/:id', async(req, res) => {
+app.get('/logs/:id', async(req, res) => {
     let i = req.params.id
     
     let foundLog = await Log.findById(i)
