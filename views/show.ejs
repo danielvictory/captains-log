@@ -12,8 +12,9 @@
 
         <h1><%=log.title %></h1>
         <p><%=log.entry %></p>
-        <p>Was the ship broken at the time?</p>
-        <% if (log.isShipBroken) { %>
+        <p>Ship was broken at the time?</p>
+        <% console.log('shipIsBroken: ', log.shipIsBroken) %>
+        <% if (log.shipIsBroken) { %>
                 <span>yes</span>
             <% } else { %>
                 <span>no</span>

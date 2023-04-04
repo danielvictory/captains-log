@@ -39,14 +39,16 @@
                                 <span><%=log.updatedAt.toString().slice(15, 24) %></span>
                             </td>
 
-                            <!-- <div class='button-group'>
-                                <form action="/<%=//p.id %>/edit">
-                                    <button type="submit">Edit</button>
-                                </form>
-                                <form action="/<%=//p.id %>/?_method=DELETE" method=POST>
-                                    <button type="submit">Delete</button>
-                                </form>
-                            </div> -->
+                            <td>
+                                <div class='button-group'>
+                                    <form action="/<%=log.id %>/edit">
+                                        <button type="submit">Edit</button>
+                                    </form>
+                                    <form action="/<%=log.id %>/?_method=DELETE" method=POST>
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
 
                         </tr>
                     <% }) %>

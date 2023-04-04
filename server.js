@@ -53,22 +53,24 @@ app.get("/new", (req, res) => {
     res.render('new.ejs')
 })
 
-// // Delete
-// app.delete("/:id", async(req, res) => {
-//     let i = req.params.id
-//     let deleteProduct = await Product.findByIdAndDelete(i)
-//     res.redirect("/")
-// })
+// Delete
+app.delete("/:id", async(req, res) => {
+    let i = req.params.id
+    let deleteLog = await Log.findByIdAndDelete(i)
+    res.redirect("/logs")
+})
 
-// // Update
-// app.put("/:id", async(req, res) => {
-//     let i = req.params.id
-//     let b = req.body
+// Update
+app.put("/:id", async(req, res) => {
+    let i = req.params.id
 
-//     let updateProduct = await Product.findByIdAndUpdate(i, b, {new: true,},)
+    req.body.shipIsBroken = req.body.shipIsBroken === "on" ? true : false;
+    let b = req.body
 
-//     res.redirect("/"+i)
-// })
+    let updateLog = await Log.findByIdAndUpdate(i, b, {new: true,},)
+
+    res.redirect("/"+i)
+})
 
 // //Update - Buy Button
 // app.put("/:id/buy", async(req, res) => {
@@ -91,24 +93,22 @@ app.get("/new", (req, res) => {
 
 // Create
 app.post("/", (req, res) => {
-    req.body.isShipBroken = req.body.isShipBroken === "on" ? true : false;
+    req.body.shipIsBroken = req.body.shipIsBroken === "on" ? true : false;
     const newLog = new Log(req.body);
-    console.log(newLog)
-    // newLog.isShipBroken = newLog.isShipBroken === "on" ? true : false;
-    // console.log(newLog)
+
     newLog.save().then(res.redirect('/'+newLog.id));
 })
 
-// // Edit
-// app.get("/:id/edit", async(req, res) => {
-//     let i = req.params.id
+// Edit
+app.get("/:id/edit", async(req, res) => {
+    let i = req.params.id
 
-//     let editProduct = await Product.findById(i)
-    
-//     res.render("edit.ejs", {
-//         product: editProduct,
-//     })
-// })
+    let editLog = await Log.findById(i)
+
+    res.render("edit.ejs", {
+        log: editLog,
+    })
+})
 
 // // Show
 // app.get('/user', async(req, res) => {
@@ -125,10 +125,9 @@ app.get('/:id', async(req, res) => {
     let i = req.params.id
     
     let foundLog = await Log.findById(i)
-    console.log(foundLog.createdAt)
+    
     res.render("show.ejs", {
         log: foundLog,
-        id: i,
         })
 });
 

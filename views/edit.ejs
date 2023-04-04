@@ -8,13 +8,21 @@
         <%- include ("./partials/nav.ejs") %>
     </nav>
     <header></header>
-    <section id='new-container'>
-        <form action="/<%=product.id %>/?_method=PUT" method="POST">
-            Name: <input type="text" name="name" value="<%=product.name %>" onclick="this.select()">
-            Descripriton: <input type="text" name="description" value="<%=product.description %>" onclick="this.select()">
-            Image: <input type="text" name="img" value="<%=product.img %>" onclick="this.select()">
-            Price: <input type="number" name="price" value="<%=product.price %>" onclick="this.select()">
-            Quantity: <input type="text" name="qty" value="<%=product.qty %>" onclick="this.select()">
+    <section id='edit-container'>
+        <form action="/<%=log.id %>/?_method=PUT" method="POST">
+
+            <label for="title">Title</label>
+            <input type="text" name="title" value="<%=log.title %>" onclick="this.select()">
+
+            <label for="entry">Entry</label>
+            <input type="text" name="entry" value="<%=log.entry %>" onclick="this.select()">
+
+            <label for="shipIsBroken">(UPDATE) Ship is/was broken?
+                <input type="checkbox" name="shipIsBroken" 
+                <%if (log.shipIsBroken) { %> checked <% } %>>
+                <br>
+            </label>
+
             <input type="submit" value="Edit">
         </form>
     </section>
